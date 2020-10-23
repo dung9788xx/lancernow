@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import i18n from "../i18n/i18n";
 
 function Copyright() {
     return (
@@ -48,7 +49,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const classes = useStyles();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    useEffect(()=>{
 
+    },[email]) ;
+    useEffect(()=>{
+
+    },[password])
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -57,16 +65,18 @@ export default function SignIn() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    {i18n.t('login')}
                 </Typography>
-                <form className={classes.form} noValidate>
+
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        label= {i18n.t('email')}
                         name="email"
                         autoComplete="email"
                         autoFocus
@@ -77,37 +87,41 @@ export default function SignIn() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        label= {i18n.t('password')}
                         type="password"
                         id="password"
                         autoComplete="current-password"
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
+                        label={i18n.t('remember_me')}
                     />
                     <Button
+                        onClick={()=>{
+                            alert(email)
+                        }}
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
                     >
-                        Sign In
+                        {i18n.t('login')}
                     </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
-                                Forgot password?
+                                {i18n.t('forgot_password')}
                             </Link>
                         </Grid>
                         <Grid item>
                             <Link href="#" variant="body2">
-                                {"Don't have an account? Sign Up"}
+                                {i18n.t('need_account')}
                             </Link>
                         </Grid>
                     </Grid>
-                </form>
             </div>
             <Box mt={8}>
                 <Copyright />
