@@ -1,14 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Dashboard from "./js/dashboard/Dashboard";
-import SignIn from "./js/auth/SignIn";
-
+import Dashboard from "./js/components/dashboard/Dashboard";
+import SignIn from "./js/components/auth/SignIn";
+import { Provider} from 'react-redux'
+import store from "./js/store";
 function App() {
   return (
-    <div className="App">
-      <SignIn/>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <SignIn/>
+      </div>
+    </Provider>
   );
 }
 

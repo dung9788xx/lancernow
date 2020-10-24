@@ -12,7 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import i18n from "../i18n/i18n";
+import i18n from "../../i18n/i18n";
+import {useSelector, useDispatch} from "react-redux";
+import {userLogin} from "../../actions/user";
 
 function Copyright() {
     return (
@@ -51,12 +53,11 @@ export default function SignIn() {
     const classes = useStyles();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const  dispatch =  useDispatch();
+    const aaa=useSelector(state => state.user.username);
     useEffect(()=>{
-
-    },[email]) ;
-    useEffect(()=>{
-
-    },[password])
+        console.log("a:"+aaa);
+    })
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -100,7 +101,11 @@ export default function SignIn() {
                     />
                     <Button
                         onClick={()=>{
-                            alert(email)
+                            const user= {
+                                password : 'pass',
+                                username : 'data ded'
+                            }
+                            dispatch(userLogin(user))
                         }}
                         type="submit"
                         fullWidth
