@@ -12,14 +12,16 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import i18n from "../i18n/i18n";
-
-function Copyright() {
+import i18n from "../../i18n/i18n";
+import {useSelector, useDispatch} from "react-redux";
+import {requestLogin, userLogin} from "../../actions/user";
+import callApi from '../../services/api'
+function Copyright(props) {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                {props.name}
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -51,12 +53,8 @@ export default function SignIn() {
     const classes = useStyles();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    useEffect(()=>{
-
-    },[email]) ;
-    useEffect(()=>{
-
-    },[password])
+    const  dispatch =  useDispatch();
+     const aaa=useSelector(state => state.user.username);
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -100,7 +98,11 @@ export default function SignIn() {
                     />
                     <Button
                         onClick={()=>{
-                            alert(email)
+                            const user= {
+                                password : 'pass',
+                                username : 'data ded'
+                            }
+                            dispatch(requestLogin())
                         }}
                         type="submit"
                         fullWidth
@@ -124,7 +126,7 @@ export default function SignIn() {
                     </Grid>
             </div>
             <Box mt={8}>
-                <Copyright />
+                <Copyright name={aaa} />
             </Box>
         </Container>
     );
