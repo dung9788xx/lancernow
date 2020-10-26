@@ -14,14 +14,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import i18n from "../../i18n/i18n";
 import {useSelector, useDispatch} from "react-redux";
-import {userLogin} from "../../actions/user";
-
-function Copyright() {
+import {requestLogin, userLogin} from "../../actions/user";
+import callApi from '../../services/api'
+function Copyright(props) {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                {props.name}
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -54,10 +54,7 @@ export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const  dispatch =  useDispatch();
-    const aaa=useSelector(state => state.user.username);
-    useEffect(()=>{
-        console.log("a:"+aaa);
-    })
+     const aaa=useSelector(state => state.user.username);
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -105,7 +102,7 @@ export default function SignIn() {
                                 password : 'pass',
                                 username : 'data ded'
                             }
-                            dispatch(userLogin(user))
+                            dispatch(requestLogin())
                         }}
                         type="submit"
                         fullWidth
@@ -129,7 +126,7 @@ export default function SignIn() {
                     </Grid>
             </div>
             <Box mt={8}>
-                <Copyright />
+                <Copyright name={aaa} />
             </Box>
         </Container>
     );

@@ -4,11 +4,12 @@ const intState = {
 }
 
 const  userReducer = (state = intState, action) => {
+
    switch (action.type) {
        case "LOGIN":{
            return {
                ...state,
-               username:action.payload.username
+               username: action.payload.username
            };
        }
 
