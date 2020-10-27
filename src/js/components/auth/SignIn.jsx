@@ -18,13 +18,13 @@ import {requestLogin, userLogin} from "../../actions/user";
 import { useHistory } from "react-router";
 import DialogCustom from "../dialog/DialogCustom";
 import Progress from "../dialog/Progress";
-function Copyright(props) {
+function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                {}
-            </Link>{' '}
+                {"aaa"}
+            </Link>
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -57,6 +57,8 @@ export default function SignIn() {
     const [password, setPassword] = useState("");
     const [isOpen, setOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
+    const [isEmptyEmail, setEmptyEmail] = useState(false);
+    const [isEmptyPassword, setEmptyPassword] = useState(false);
     const [errorMessage, setMessage] = useState('');
     const  dispatch =  useDispatch();
     let history = useHistory();
@@ -68,11 +70,12 @@ export default function SignIn() {
         }else{
             setMessage(res.data.message);
             setOpen(true);
-       }
+        }
 
     }
     const onFail = (res)=>{
-        setMessage(res.toString);
+        setMessage(res.code);
+        setOpen(true);
     }
     const handleClose = () =>{
         setOpen(false);
@@ -92,10 +95,11 @@ export default function SignIn() {
                         variant="outlined"
                         margin="normal"
                         required
+                        error={isEmptyEmail}
                         fullWidth
                         id="email"
                         value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        onChange={e => {setEmail(e.target.value);setEmptyEmail(false)}}
                         label= {i18n.t('email')}
                         name="email"
                         autoComplete="email"
@@ -106,9 +110,10 @@ export default function SignIn() {
                         margin="normal"
                         required
                         fullWidth
+                        error={isEmptyPassword}
                         name="password"
                         value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        onChange={e => {setPassword(e.target.value);setEmptyPassword(false)}}
                         label= {i18n.t('password')}
                         type="password"
                         id="password"
@@ -121,12 +126,17 @@ export default function SignIn() {
 
                     <Button
                         onClick={()=>{
-                            setLoading(true);
-                            const user= {
-                                email : email,
-                                password : password
+                            if(email.length ==0 || password.length ==0){
+                                if(email.length==0) setEmptyEmail(true);
+                                if(password.length==0) setEmptyPassword(true);
+                            }else {
+                                setLoading(true);
+                                const user = {
+                                    email: email,
+                                    password: password
+                                }
+                                dispatch(requestLogin(user, onSuccess, onFail))
                             }
-                            dispatch(requestLogin(user,onSuccess, onFail))
                         }}
                         type="submit"
                         fullWidth

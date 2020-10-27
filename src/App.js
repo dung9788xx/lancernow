@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Dashboard from "./js/components/dashboard/Dashboard";
-import SignIn from "./js/components/auth/SignIn";
+import SignIn from "./js/components/auth/SignIn.jsx";
 import { Provider} from 'react-redux'
 import store from "./js/store";
 import {BrowserRouter, Switch, Route } from "react-router-dom";

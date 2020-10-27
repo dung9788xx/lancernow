@@ -1,5 +1,11 @@
 import axios from 'axios';
 import {getBearerToken} from "./storageUtils";
+import i18next from "i18next";
+if(i18next.language ==='vi'){
+    axios.defaults.headers.post['lang'] = 'vn'
+}else{
+    axios.defaults.headers.post['lang'] = 'en'
+}
 
 axios.defaults.headers.common = {'Authorization': `Bearer '${getBearerToken()}'`}
 function callApi(endpoint, method, params, onSuccess, onFail) {

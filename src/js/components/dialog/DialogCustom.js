@@ -18,18 +18,15 @@ function DialogCustom(props) {
     const classes = useStyles();
     return (
         <Dialog
-            titleStyle={{textAlign: "center"}}
             fullWidth={true}
             maxWidth={"xs"}
-           open={props.open}
+            open={props.open}
             onClose={props.handClose}
             aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-
-        >
+            aria-describedby="alert-dialog-description">
             <DialogTitle className={classes.paper}  >{props.title}</DialogTitle>
             <DialogContent>
-                <DialogContentText id="alert-dialog-description">
+                <DialogContentText className={classes.paper}  id="alert-dialog-description">
                     {props.children}
                 </DialogContentText>
             </DialogContent>
