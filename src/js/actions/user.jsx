@@ -1,14 +1,7 @@
-import {useDispatch} from "react-redux";
-import callApi from "../services/api";
-export  const requestLogin = () => {
-    return dispatch => callApi('http://web.com',"POST").then((res)=>{
-        return dispatch(userLogin({username:'aa',password:'pass'}))
-    }).catch((e)=>{
-        return dispatch(userLogin({username:'aa',password:'pass'}))
-
-    });
-
-
+import callApi from "../services/callApi";
+import {LOGIN_API} from "../constansts/apiConstants";
+export  const requestLogin = (params,onSuccess,onFail) => {
+    return () => callApi(LOGIN_API,"POST", params, onSuccess, onFail)
 }
 export const userLogin = (user) => {
     return {

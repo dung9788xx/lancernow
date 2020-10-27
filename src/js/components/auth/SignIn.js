@@ -15,13 +15,13 @@ import Container from '@material-ui/core/Container';
 import i18n from "../../i18n/i18n";
 import {useSelector, useDispatch} from "react-redux";
 import {requestLogin, userLogin} from "../../actions/user";
-import callApi from '../../services/api'
+import callApi from '../../services/callApi'
 function Copyright(props) {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                {props.name}
+                {}
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -54,7 +54,12 @@ export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const  dispatch =  useDispatch();
-     const aaa=useSelector(state => state.user.username);
+    const onSuccess = (res)=>{
+      dispatch(userLogin({username:res.data,password:'pass'}))
+    }
+    const onFail = (res)=>{
+        alert('fail'+res.toString());
+    }
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -99,10 +104,10 @@ export default function SignIn() {
                     <Button
                         onClick={()=>{
                             const user= {
-                                password : 'pass',
-                                username : 'data ded'
+                                email : email,
+                                password : password
                             }
-                            dispatch(requestLogin())
+                            dispatch(requestLogin(user,onSuccess, onFail))
                         }}
                         type="submit"
                         fullWidth
@@ -126,7 +131,7 @@ export default function SignIn() {
                     </Grid>
             </div>
             <Box mt={8}>
-                <Copyright name={aaa} />
+                <Copyright />
             </Box>
         </Container>
     );

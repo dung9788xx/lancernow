@@ -1,6 +1,6 @@
 const intState = {
-    username:'bbb',
-    password:'cccc'
+    username:'',
+    password:''
 }
 
 const  userReducer = (state = intState, action) => {
