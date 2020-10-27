@@ -18,7 +18,8 @@ i18n
                     'home':'Home',
                     'job':'Jobs',
                     'need_account': "Don't have an account? Sign Up",
-                    'remember_me' : "Remember me"
+                    'remember_me' : "Remember me",
+                    'login_failed': " Login Failed"
                 }
             },
             vn: {
@@ -33,7 +34,8 @@ i18n
                     'home':'Trang chủ',
                     'job':'Việc làm',
                     'need_account': "Chưa có tài khoản? Đăng ký",
-                    'remember_me' : "Ghi nhớ tôi"
+                    'remember_me' : "Ghi nhớ tôi",
+                    'login_failed': " Đăng nhập thất bại"
                 }
             }
         },

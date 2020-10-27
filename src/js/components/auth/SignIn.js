@@ -15,7 +15,9 @@ import Container from '@material-ui/core/Container';
 import i18n from "../../i18n/i18n";
 import {useSelector, useDispatch} from "react-redux";
 import {requestLogin, userLogin} from "../../actions/user";
-import callApi from '../../services/callApi'
+import { useHistory } from "react-router";
+import DialogCustom from "../dialog/DialogCustom";
+import Progress from "../dialog/Progress";
 function Copyright(props) {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -53,12 +55,27 @@ export default function SignIn() {
     const classes = useStyles();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isOpen, setOpen] = useState(false);
+    const [isLoading, setLoading] = useState(false);
+    const [errorMessage, setMessage] = useState('');
     const  dispatch =  useDispatch();
+    let history = useHistory();
     const onSuccess = (res)=>{
-      dispatch(userLogin({username:res.data,password:'pass'}))
+        setLoading(false);
+        if(res.data.code==200){
+            dispatch(userLogin({username:res.data,password:'pass'}))
+            history.push('/');
+        }else{
+            setMessage(res.data.message);
+            setOpen(true);
+       }
+
     }
     const onFail = (res)=>{
-        alert('fail'+res.toString());
+        setMessage(res.toString);
+    }
+    const handleClose = () =>{
+        setOpen(false);
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -101,8 +118,10 @@ export default function SignIn() {
                         control={<Checkbox value="remember" color="primary" />}
                         label={i18n.t('remember_me')}
                     />
+
                     <Button
                         onClick={()=>{
+                            setLoading(true);
                             const user= {
                                 email : email,
                                 password : password
@@ -133,6 +152,8 @@ export default function SignIn() {
             <Box mt={8}>
                 <Copyright />
             </Box>
+            <DialogCustom open={isOpen} handClose={handleClose} title={i18n.t('login_failed')} >{errorMessage}</DialogCustom>
+            <Progress open={isLoading}/>
         </Container>
     );
 }
