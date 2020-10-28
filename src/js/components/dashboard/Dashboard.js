@@ -22,6 +22,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import {getListUser} from "../../actions/admin";
 
 function Copyright() {
   return (
@@ -128,6 +129,15 @@ export default function Dashboard() {
     setOpen(!open);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const onSuccess = (res) => {
+    alert(res.data);
+  }
+  const onFail = (res)=>{
+    alert(res.data);
+  }
+  getListUser(onSuccess)
+
 
   return (
     <div className={classes.root}>

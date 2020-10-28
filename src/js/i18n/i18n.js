@@ -14,12 +14,14 @@ i18n
                     "login":"Login",
                     "register":"Register",
                     'forgot_password':"Forgot password?",
-                    'username_password_empty':"Username and password cannot be emppty !",
+                    'username_password_empty':"Username and password cannot be empty!",
                     'home':'Home',
                     'job':'Jobs',
                     'need_account': "Don't have an account? Sign Up",
                     'remember_me' : "Remember me",
-                    'login_failed': " Login Failed"
+                    'login_failed': " Login Failed",
+                    'Network Error':'Network Error',
+                    'Request failed with status code 500' : ' Some thing went wrong please try again!'
                 }
             },
             vn: {
@@ -35,7 +37,9 @@ i18n
                     'job':'Việc làm',
                     'need_account': "Chưa có tài khoản? Đăng ký",
                     'remember_me' : "Ghi nhớ tôi",
-                    'login_failed': " Đăng nhập thất bại"
+                    'login_failed': " Đăng nhập thất bại",
+                    'Network Error':"Kiểm tra lại kết nối",
+                    'Request failed with status code 500' : 'Có lỗi xảy ra vui lòng thử lại!'
                 }
             }
         },

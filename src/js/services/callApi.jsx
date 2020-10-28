@@ -1,10 +1,13 @@
 import axios from 'axios';
 import {getBearerToken} from "./storageUtils";
-import i18next from "i18next";
-if(i18next.language ==='vi'){
+import i18n from "../i18n/i18n";
+console.log(i18n.language);
+if(i18n.language ==='vi'){
     axios.defaults.headers.post['lang'] = 'vn'
+    axios.defaults.headers.get['lang'] = 'vn'
 }else{
     axios.defaults.headers.post['lang'] = 'en'
+    axios.defaults.headers.get['lang'] = 'en'
 }
 
 axios.defaults.headers.common = {'Authorization': `Bearer '${getBearerToken()}'`}
@@ -20,7 +23,7 @@ function callApi(endpoint, method, params, onSuccess, onFail) {
     else
         return api.get('', {
                 params
-        })
+        }).then(onSuccess).catch(onFail);
 }
 
 export default callApi;

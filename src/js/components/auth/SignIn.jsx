@@ -18,6 +18,8 @@ import {requestLogin, userLogin} from "../../actions/user";
 import { useHistory } from "react-router";
 import DialogCustom from "../dialog/DialogCustom";
 import Progress from "../dialog/Progress";
+import {setUserInfo} from "../../services/storageUtils";
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -60,12 +62,18 @@ export default function SignIn() {
     const [isEmptyEmail, setEmptyEmail] = useState(false);
     const [isEmptyPassword, setEmptyPassword] = useState(false);
     const [errorMessage, setMessage] = useState('');
+    const [isRemberme, setRememberme] =useState(false);
     const  dispatch =  useDispatch();
     let history = useHistory();
     const onSuccess = (res)=>{
         setLoading(false);
         if(res.data.code==200){
-            dispatch(userLogin({username:res.data,password:'pass'}))
+          //  dispatch(userLogin({username:res.data,password:'pass'}))
+            const user = {
+                token:res.data.data,
+                email:email
+            }
+            setUserInfo(user, isRemberme);
             history.push('/');
         }else{
             setMessage(res.data.message);
@@ -74,8 +82,9 @@ export default function SignIn() {
 
     }
     const onFail = (res)=>{
-        setMessage(res.code);
+        setMessage(i18n.exists(res.message) ? i18n.t(res.message) : res.message);
         setOpen(true);
+        setLoading(false);
     }
     const handleClose = () =>{
         setOpen(false);
@@ -120,7 +129,7 @@ export default function SignIn() {
                         autoComplete="current-password"
                     />
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
+                        control={<Checkbox value="remember" checked={isRemberme} onChange={()=>setRememberme(!isRemberme)} color="primary" />}
                         label={i18n.t('remember_me')}
                     />
 
@@ -164,6 +173,7 @@ export default function SignIn() {
             </Box>
             <DialogCustom open={isOpen} handClose={handleClose} title={i18n.t('login_failed')} >{errorMessage}</DialogCustom>
             <Progress open={isLoading}/>
+
         </Container>
     );
 }

@@ -23,9 +23,7 @@ function Progress(props) {
         >
             <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
             <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    <CircularProgress color="secondary" />
-                </DialogContentText>
+                   <CircularProgress color="secondary" />
             </DialogContent>
         </Dialog>
 
