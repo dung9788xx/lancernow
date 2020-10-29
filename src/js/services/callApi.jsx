@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {getBearerToken} from "./storageUtils";
 import i18n from "../i18n/i18n";
-console.log(i18n.language);
 if(i18n.language ==='vi'){
     axios.defaults.headers.post['lang'] = 'vn'
     axios.defaults.headers.get['lang'] = 'vn'
@@ -9,20 +8,34 @@ if(i18n.language ==='vi'){
     axios.defaults.headers.post['lang'] = 'en'
     axios.defaults.headers.get['lang'] = 'en'
 }
-
-axios.defaults.headers.common = {'Authorization': `Bearer '${getBearerToken()}'`}
 function callApi(endpoint, method, params, onSuccess, onFail) {
     const api = axios.create({
         baseURL: (endpoint),
         timeout: 60000,
     });
+    api.interceptors.response.use(res => {
+        console.log(res.request)
+        return res;
+    }, error => Promise.reject(error));
     if (method === 'POST')
         return api.post('',
-                params
+                params,
+            {
+                headers: {
+                    'Accept' : 'application/json',
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${getBearerToken()}`
+                }
+            }
         ).then(onSuccess).catch(onFail);
     else
         return api.get('', {
-                params
+        headers: {
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${getBearerToken()}`,
+            'Accept-Encoding' : "gzip, deflate"
+    }
         }).then(onSuccess).catch(onFail);
 }
 

@@ -23,6 +23,8 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import {getListUser} from "../../actions/admin";
+import {useDispatch} from "react-redux";
+import {getBearerToken} from "../../services/storageUtils";
 
 function Copyright() {
   return (
@@ -124,6 +126,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const dispatch =useDispatch();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -131,12 +134,12 @@ export default function Dashboard() {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const onSuccess = (res) => {
-    alert(res.data);
+    alert(res.data.data);
   }
   const onFail = (res)=>{
-    alert(res.data);
+  //  alert(res.data.data);
   }
-  getListUser(onSuccess)
+dispatch(  getListUser(onSuccess,onFail));
 
 
   return (

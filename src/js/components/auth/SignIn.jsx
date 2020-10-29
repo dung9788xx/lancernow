@@ -18,7 +18,7 @@ import {requestLogin, userLogin} from "../../actions/user";
 import { useHistory } from "react-router";
 import DialogCustom from "../dialog/DialogCustom";
 import Progress from "../dialog/Progress";
-import {setUserInfo} from "../../services/storageUtils";
+import {getBearerToken, setUserInfo} from "../../services/storageUtils";
 
 function Copyright() {
     return (
@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const classes = useStyles();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("admin@gmail.com");
+    const [password, setPassword] = useState("password");
     const [isOpen, setOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [isEmptyEmail, setEmptyEmail] = useState(false);
