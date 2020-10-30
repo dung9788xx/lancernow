@@ -25,6 +25,7 @@ import Orders from './Orders';
 import {getListUser} from "../../actions/admin";
 import {useDispatch} from "react-redux";
 import {getBearerToken} from "../../services/storageUtils";
+import {useEffect} from "react";
 
 function Copyright() {
   return (
@@ -139,7 +140,9 @@ export default function Dashboard() {
   const onFail = (res)=>{
   //  alert(res.data.data);
   }
-dispatch(  getListUser(onSuccess,onFail));
+  useEffect(()=>{
+    dispatch(  getListUser(onSuccess,onFail))
+  },[]);
 
 
   return (
