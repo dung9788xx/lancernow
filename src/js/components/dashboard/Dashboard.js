@@ -24,8 +24,9 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import {getListUser} from "../../actions/admin";
 import {useDispatch} from "react-redux";
-import {getBearerToken} from "../../services/storageUtils";
+import {getBearerToken, getStorageItem} from "../../services/storageUtils";
 import {useEffect} from "react";
+import {EMAIL_KEY} from "../../constansts/storageConst";
 
 function Copyright() {
   return (
@@ -135,10 +136,11 @@ export default function Dashboard() {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const onSuccess = (res) => {
-    alert(res.data.data);
+    alert(res.data);
   }
   const onFail = (res)=>{
-  //  alert(res.data.data);
+
+    alert(res.data.data);
   }
   useEffect(()=>{
     dispatch(  getListUser(onSuccess,onFail))
@@ -177,8 +179,12 @@ export default function Dashboard() {
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
+
             </Badge>
           </IconButton>
+          <Typography>
+              {getStorageItem(EMAIL_KEY)}
+          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer

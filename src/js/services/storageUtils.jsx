@@ -1,5 +1,5 @@
-const BEARER_KEY='Bearer_token';
-const EMAIL_KEY='Email';
+import {BEARER_KEY, EMAIL_KEY} from "../constansts/storageConst";
+
 export function getBearerToken() {
     if(localStorage.getItem('remember')){
         return  localStorage.getItem(BEARER_KEY);
@@ -16,5 +16,12 @@ export function setUserInfo(object, isRememberme) {
     } else {
         sessionStorage.setItem(BEARER_KEY, object.token);
         sessionStorage.setItem(EMAIL_KEY, object.email);
+    }
+}
+export function getStorageItem(key) {
+    if(localStorage.getItem('remember')){
+        return  localStorage.getItem(key);
+    } else {
+        return  sessionStorage.getItem(key);
     }
 }
