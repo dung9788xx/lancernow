@@ -27,6 +27,15 @@ import {useDispatch} from "react-redux";
 import {getBearerToken, getStorageItem} from "../../services/storageUtils";
 import {useEffect} from "react";
 import {EMAIL_KEY} from "../../constansts/storageConst";
+import Button from "@material-ui/core/Button";
+import Popper from "@material-ui/core/Popper";
+import Grow from "@material-ui/core/Grow";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import MenuList from "@material-ui/core/MenuList";
+import MenuItem from "@material-ui/core/MenuItem";
+import {logout} from "../../actions/user";
+import { useHistory } from "react-router";
+
 
 function Copyright() {
   return (
@@ -130,22 +139,47 @@ export default function Dashboard() {
   const classes = useStyles();
   const dispatch =useDispatch();
   const [open, setOpen] = React.useState(true);
+  const [openLog, setOpenLog] = React.useState(false);
+  const history = useHistory();
+  const anchorRef = React.useRef(null);
   const toggleDrawer = () => {
     setOpen(!open);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const onSuccess = (res) => {
-    alert(res.data);
+
+    if(res.data.code == 200){
+      alert(res.data.data);
+    }else{
+      console.log(res.data.code+'faol');
+      alert(res.data.message);
+    }
   }
   const onFail = (res)=>{
-
-    alert(res.data.data);
+    console.log(res)
+    alert(res.data);
   }
   useEffect(()=>{
     dispatch(  getListUser(onSuccess,onFail))
   },[]);
+const handleClose = (event)=>{
 
+  if(event.target.id == 3){
+    dispatch(logout(()=>{
+      history.push('/signin')
+    }));
+
+    console.log(event.target.id)
+  }
+  if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    return;
+  }
+  setOpenLog(false);
+}
+const handleListKeyDown= ()=>{
+
+}
 
   return (
     <div className={classes.root}>
@@ -182,9 +216,27 @@ export default function Dashboard() {
 
             </Badge>
           </IconButton>
-          <Typography>
+            <Button  ref={anchorRef} color="inherit" onClick={()=>{setOpenLog(!openLog)}} >
               {getStorageItem(EMAIL_KEY)}
-          </Typography>
+            </Button>
+          <Popper open={openLog} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+            {({ TransitionProps, placement }) => (
+                <Grow
+                    {...TransitionProps}
+                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem id={3} onClick={handleClose}>Logout</MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+            )}
+          </Popper>
         </Toolbar>
       </AppBar>
       <Drawer
