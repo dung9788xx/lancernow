@@ -35,6 +35,7 @@ import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import {logout} from "../../actions/user";
 import { useHistory } from "react-router";
+import i18next from "i18next";
 
 
 function Copyright() {
@@ -230,7 +231,7 @@ const handleListKeyDown= ()=>{
                       <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                         <MenuItem onClick={handleClose}>Profile</MenuItem>
                         <MenuItem onClick={handleClose}>My account</MenuItem>
-                        <MenuItem id={3} onClick={handleClose}>Logout</MenuItem>
+                        <MenuItem id={3} onClick={handleClose}>{i18next.t('logout')}</MenuItem>
                       </MenuList>
                     </ClickAwayListener>
                   </Paper>

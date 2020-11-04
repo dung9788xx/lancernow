@@ -21,7 +21,8 @@ i18n
                     'remember_me' : "Remember me",
                     'login_failed': " Login Failed",
                     'Network Error':'Network Error',
-                    'Request failed with status code 500' : ' Some thing went wrong please try again!'
+                    'Request failed with status code 500' : ' Some thing went wrong please try again!',
+                    'logout' : 'Logout'
                 }
             },
             vn: {
@@ -39,7 +40,8 @@ i18n
                     'remember_me' : "Ghi nhớ tôi",
                     'login_failed': " Đăng nhập thất bại",
                     'Network Error':"Kiểm tra lại kết nối",
-                    'Request failed with status code 500' : 'Có lỗi xảy ra vui lòng thử lại!'
+                    'Request failed with status code 500' : 'Có lỗi xảy ra vui lòng thử lại!',
+                    'logout' : 'Đăng xuất'
                 }
             }
         },
