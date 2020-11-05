@@ -5,6 +5,9 @@ import SignIn from "./js/components/auth/SignIn.jsx";
 import { Provider} from 'react-redux'
 import store from "./js/store";
 import {BrowserRouter, Switch, Route } from "react-router-dom";
+import DialogCustom from "./js/components/dialog/DialogCustom";
+import i18n from "./js/i18n/i18n";
+import Container from "@material-ui/core/Container";
 function App() {
   return (
       <BrowserRouter>
