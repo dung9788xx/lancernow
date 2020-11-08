@@ -7,7 +7,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {useSelector} from "react-redux";
 function Progress(props) {
+    const isStart =  useSelector(state => state.progress.isStart)
     return (
         <Dialog
             PaperProps={{
@@ -17,7 +19,7 @@ function Progress(props) {
                     color: 'red'
                 },
             }}
-            open={props.open}
+            open={isStart}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >

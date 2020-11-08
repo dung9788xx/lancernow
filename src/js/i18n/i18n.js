@@ -22,7 +22,8 @@ i18n
                     'login_failed': " Login Failed",
                     'Network Error':'Network Error',
                     'Request failed with status code 500' : ' Some thing went wrong please try again!',
-                    'logout' : 'Logout'
+                    'logout' : 'Logout',
+                    'error' : 'Error'
                 }
             },
             vn: {
@@ -41,7 +42,8 @@ i18n
                     'login_failed': " Đăng nhập thất bại",
                     'Network Error':"Kiểm tra lại kết nối",
                     'Request failed with status code 500' : 'Có lỗi xảy ra vui lòng thử lại!',
-                    'logout' : 'Đăng xuất'
+                    'logout' : 'Đăng xuất',
+                    'error' : 'Lỗi'
                 }
             }
         },

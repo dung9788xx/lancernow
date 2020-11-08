@@ -19,6 +19,7 @@ import { useHistory } from "react-router";
 import DialogCustom from "../dialog/DialogCustom";
 import Progress from "../dialog/Progress";
 import {getBearerToken, setUserInfo} from "../../services/storageUtils";
+import {startProgress} from "../../actions/progressDialog";
 
 function Copyright() {
     return (
@@ -61,7 +62,6 @@ export default function SignIn() {
     const [isLoading, setLoading] = useState(false);
     const [isEmptyEmail, setEmptyEmail] = useState(false);
     const [isEmptyPassword, setEmptyPassword] = useState(false);
-    const [errorMessage, setMessage] = useState('');
     const [isRemberme, setRememberme] =useState(false);
     const  dispatch =  useDispatch();
     let history = useHistory();
@@ -76,16 +76,17 @@ export default function SignIn() {
             setUserInfo(user, isRemberme);
             history.push('/');
         }else{
-            setMessage(res.data.message);
+            dispatch(progressDialog(res.data.message));
             setOpen(true);
         }
 
     }
-    const onFail = (res)=>{
-        setMessage(i18n.exists(res.message) ? i18n.t(res.message) : res.message);
-        setOpen(true);
-        setLoading(false);
-    }
+    // useEffect(()=>{
+    //      if(isError!=undefined){
+    //          setOpen(true);
+    //          setLoading(false);
+    //      }
+    // },[isError]);
     const handleClose = () =>{
         setOpen(false);
     }
@@ -139,12 +140,12 @@ export default function SignIn() {
                                 if(email.length==0) setEmptyEmail(true);
                                 if(password.length==0) setEmptyPassword(true);
                             }else {
-                                setLoading(true);
+                                dispatch(startProgress())
                                 const user = {
                                     email: email,
                                     password: password
                                 }
-                                dispatch(requestLogin(user, onSuccess, onFail))
+                                dispatch(requestLogin(user, onSuccess))
                             }
                         }}
                         type="submit"
@@ -171,8 +172,8 @@ export default function SignIn() {
             <Box mt={8}>
                 <Copyright />
             </Box>
-            <DialogCustom open={isOpen} handClose={handleClose} title={i18n.t('login_failed')} >{errorMessage}</DialogCustom>
-            <Progress open={isLoading}/>
+            <DialogCustom title={i18n.t('login_failed')} ></DialogCustom>
+            <Progress />
 
         </Container>
     );

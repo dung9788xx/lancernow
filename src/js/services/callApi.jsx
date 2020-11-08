@@ -1,6 +1,9 @@
 import axios from 'axios';
+import store from "../store";
 import {getBearerToken} from "./storageUtils";
 import i18n from "../i18n/i18n";
+import {openDialog} from "../actions/dialog";
+import {stopProgress} from "../actions/progressDialog";
 if(i18n.language ==='vi'){
     axios.defaults.headers.post['lang'] = 'vn'
     axios.defaults.headers.get['lang'] = 'vn'
@@ -8,7 +11,11 @@ if(i18n.language ==='vi'){
     axios.defaults.headers.post['lang'] = 'en'
     axios.defaults.headers.get['lang'] = 'en'
 }
-function callApi(endpoint, method, params, onSuccess, onFail) {
+function callApi(endpoint, method, params, onSuccess) {
+    const onFail = (e)=>{
+        store.dispatch(stopProgress())
+       store.dispatch(openDialog(e.message))
+    }
     const header=  {
         'Accept' : 'application/json',
         'Content-Type': 'application/json',
@@ -18,9 +25,9 @@ function callApi(endpoint, method, params, onSuccess, onFail) {
         baseURL: (endpoint),
         timeout: 60000,
     });
-    api.interceptors.response.use(res => {
-        return res;
-    }, error => Promise.reject(error));
+    // api.interceptors.response.use(res => {
+    //     return res;
+    // }, progressDialog => Promise.reject(progressDialog));
     if (method === 'POST')
         return api.post('',
                 params,

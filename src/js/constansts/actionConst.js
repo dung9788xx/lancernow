@@ -1,0 +1,2 @@
+export const START_PROGRESS = "START_PROGRESS";
+export const STOP_PROGRESS = "STOP_PROGRESS";
