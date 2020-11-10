@@ -3,7 +3,7 @@ import store from "../store";
 import {getBearerToken} from "./storageUtils";
 import i18n from "../i18n/i18n";
 import {openDialog} from "../actions/dialog";
-import {stopProgress} from "../actions/progressDialog";
+import {startProgress, stopProgress} from "../actions/progressDialog";
 if(i18n.language ==='vi'){
     axios.defaults.headers.post['lang'] = 'vn'
     axios.defaults.headers.get['lang'] = 'vn'
@@ -25,20 +25,18 @@ function callApi(endpoint, method, params, onSuccess) {
         baseURL: (endpoint),
         timeout: 60000,
     });
-    // api.interceptors.response.use(res => {
-    //     return res;
-    // }, progressDialog => Promise.reject(progressDialog));
+    store.dispatch(startProgress())
     if (method === 'POST')
         return api.post('',
                 params,
             {
                 headers: header
             }
-        ).then(onSuccess).catch(onFail);
+        ).then(onSuccess).then(()=> store.dispatch(stopProgress())).catch(onFail);
     else
         return api.get('', {
        headers: header
-        }).then(onSuccess).catch(onFail);
+        }).then(onSuccess).then( ()=>store.dispatch(stopProgress())).catch(onFail);
 }
 
 export default callApi;

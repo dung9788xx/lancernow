@@ -140,7 +140,6 @@ export default function SignIn() {
                                 if(email.length==0) setEmptyEmail(true);
                                 if(password.length==0) setEmptyPassword(true);
                             }else {
-                                dispatch(startProgress())
                                 const user = {
                                     email: email,
                                     password: password
