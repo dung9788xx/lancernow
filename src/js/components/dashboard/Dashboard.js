@@ -153,20 +153,14 @@ export default function Dashboard() {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     const onSuccess = (res) => {
-
         if (res.data.code == 200) {
             alert(res.data.data);
         } else {
-            console.log(res.data.code + 'faol');
             alert(res.data.message);
         }
     }
-    const onFail = (res) => {
-        console.log(res)
-        alert(res.data);
-    }
     useEffect(() => {
-        dispatch(getListUser(onSuccess, onFail))
+        dispatch(getListUser(onSuccess))
     }, []);
     const handleClose = (event) => {
 
@@ -183,8 +177,13 @@ export default function Dashboard() {
         setOpenLog(false);
     }
     const handleListKeyDown = () => {
-
     }
+
+  useEffect(()=>{
+    dispatch(  getListUser(onSuccess))
+  },[]);
+
+
 
     return (
         <div className={classes.root}>

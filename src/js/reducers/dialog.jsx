@@ -12,17 +12,17 @@ const  dialogReducer = (state = intState, action) => {
            return {
                ...state,
                message: messageConvert(action.payload),
-               isOpen: true
+               isOpen: true,
+               forceLogin: action.forceLogin
            };
        }
        case  "CLOSE_DIALOG":{
            return {
                ...state,
-               isOpen: false
+               isOpen: false,
+               forceLogin: false
            };
-
        }
-
    }
    return state;
 

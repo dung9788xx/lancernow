@@ -32,11 +32,25 @@ function callApi(endpoint, method, params, onSuccess) {
             {
                 headers: header
             }
-        ).then(onSuccess).then(()=> store.dispatch(stopProgress())).catch(onFail);
+        ).then((res)=>{
+            store.dispatch(stopProgress())
+            if(res.code==403){
+                store.dispatch(openDialog(res.message, true));
+            }else {
+                onSuccess(res);
+            }
+            }).catch(onFail);
     else
         return api.get('', {
        headers: header
-        }).then(onSuccess).then( ()=>store.dispatch(stopProgress())).catch(onFail);
+        }).then((res)=>{
+            store.dispatch(stopProgress())
+            if (res.data.code == 401) {
+                store.dispatch(openDialog(res.data.message, true));
+            }else {
+                onSuccess(res);
+            }
+        }).catch(onFail);
 }
 
 export default callApi;

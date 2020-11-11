@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useEffect} from "react";
 import Dialog  from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {unsetError} from "../../actions/progressDialog";
 import store from "../../store";
 import {closeDialog} from "../../actions/dialog";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -22,8 +23,14 @@ function DialogCustom(props) {
     const classes = useStyles();
     const isOpen = useSelector(state => state.dialog.isOpen);
     const message = useSelector(state => state.dialog.message);
+    const forceLogin = useSelector(state => state.dialog.forceLogin);
+    let history = useHistory();
+
     const dispatch =useDispatch();
     const handleClose = ()=>{
+        if (forceLogin == true) {
+            history.push('/signin')
+        }
         dispatch(closeDialog());
     }
     return (
