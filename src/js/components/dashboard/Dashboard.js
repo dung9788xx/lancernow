@@ -168,8 +168,6 @@ export default function Dashboard() {
             dispatch(logout(() => {
                 history.push('/signin')
             }));
-
-            console.log(event.target.id)
         }
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
@@ -178,13 +176,6 @@ export default function Dashboard() {
     }
     const handleListKeyDown = () => {
     }
-
-  useEffect(()=>{
-    dispatch(  getListUser(onSuccess))
-  },[]);
-
-
-
     return (
         <div className={classes.root}>
             <CssBaseline/>
