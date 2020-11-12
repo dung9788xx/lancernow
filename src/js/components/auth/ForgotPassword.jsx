@@ -54,15 +54,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignIn() {
+export default function ForgotPassword() {
     const classes = useStyles();
     const [email, setEmail] = useState("admin@gmail.com");
-    const [password, setPassword] = useState("password");
     const [isOpen, setOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [isEmptyEmail, setEmptyEmail] = useState(false);
-    const [isEmptyPassword, setEmptyPassword] = useState(false);
-    const [isRemberme, setRememberme] =useState(false);
     const  dispatch =  useDispatch();
     let history = useHistory();
     const onSuccess = (res)=>{
@@ -81,12 +78,6 @@ export default function SignIn() {
         }
 
     }
-    // useEffect(()=>{
-    //      if(isError!=undefined){
-    //          setOpen(true);
-    //          setLoading(false);
-    //      }
-    // },[isError]);
     const handleClose = () =>{
         setOpen(false);
     }
@@ -115,25 +106,6 @@ export default function SignIn() {
                         autoComplete="email"
                         autoFocus
                     />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        error={isEmptyPassword}
-                        name="password"
-                        value={password}
-                        onChange={e => {setPassword(e.target.value);setEmptyPassword(false)}}
-                        label= {i18n.t('password')}
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" checked={isRemberme} onChange={()=>setRememberme(!isRemberme)} color="primary" />}
-                        label={i18n.t('remember_me')}
-                    />
-
                     <Button
                         onClick={()=>{
                             if(email.length ==0 || password.length ==0){
@@ -157,7 +129,7 @@ export default function SignIn() {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href="/reset_password?token" variant="body2">
+                            <Link href="#" variant="body2">
                                 {i18n.t('forgot_password')}
                             </Link>
                         </Grid>

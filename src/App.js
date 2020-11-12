@@ -8,6 +8,7 @@ import {BrowserRouter, Switch, Route } from "react-router-dom";
 import DialogCustom from "./js/components/dialog/DialogCustom";
 import i18n from "./js/i18n/i18n";
 import Container from "@material-ui/core/Container";
+import ForgotPassword from "./js/components/auth/ForgotPassword";
 function App() {
   return (
       <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
               <Provider store={store}>
                   <Route exact path ='/signin' component={SignIn} />
                   <Route exact path ='/' component={Dashboard} />
+                  <Route path ='/reset_password?token' component={ForgotPassword} />
               </Provider>
           </Switch>
       </BrowserRouter>
