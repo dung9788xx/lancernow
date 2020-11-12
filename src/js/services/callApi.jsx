@@ -4,20 +4,22 @@ import {getBearerToken} from "./storageUtils";
 import i18n from "../i18n/i18n";
 import {openDialog} from "../actions/dialog";
 import {startProgress, stopProgress} from "../actions/progressDialog";
-if(i18n.language ==='vi'){
+
+if (i18n.language === 'vi') {
     axios.defaults.headers.post['lang'] = 'vn'
     axios.defaults.headers.get['lang'] = 'vn'
-}else{
+} else {
     axios.defaults.headers.post['lang'] = 'en'
     axios.defaults.headers.get['lang'] = 'en'
 }
+
 function callApi(endpoint, method, params, onSuccess) {
-    const onFail = (e)=>{
+    const onFail = (e) => {
         store.dispatch(stopProgress())
-       store.dispatch(openDialog(e.message))
+        store.dispatch(openDialog(e.message))
     }
-    const header=  {
-        'Accept' : 'application/json',
+    const header = {
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${getBearerToken()}`
     }
@@ -28,26 +30,26 @@ function callApi(endpoint, method, params, onSuccess) {
     store.dispatch(startProgress())
     if (method === 'POST')
         return api.post('',
-                params,
+            params,
             {
                 headers: header
             }
-        ).then((res)=>{
+        ).then((res) => {
             store.dispatch(stopProgress())
-            if(res.code==403){
+            if (res.code == 401) {
                 store.dispatch(openDialog(res.message, true));
-            }else {
+            } else {
                 onSuccess(res);
             }
-            }).catch(onFail);
+        }).catch(onFail);
     else
         return api.get('', {
-       headers: header
-        }).then((res)=>{
+            headers: header
+        }).then((res) => {
             store.dispatch(stopProgress())
             if (res.data.code == 401) {
                 store.dispatch(openDialog(res.data.message, true));
-            }else {
+            } else {
                 onSuccess(res);
             }
         }).catch(onFail);
