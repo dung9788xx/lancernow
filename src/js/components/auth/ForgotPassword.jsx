@@ -23,19 +23,9 @@ import {startProgress} from "../../actions/progressDialog";
 import callApi from "../../services/callApi";
 import {FORGOT_PASSWORD_API, RESET_PASSWORD_API} from "../../constansts/apiConstants";
 import {openDialog} from "../../actions/dialog";
+import Footer from "../footer/footer";
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                {i18n.t('web_name')}
-            </Link>
-             {" "+new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -210,7 +200,7 @@ export default function ForgotPassword(props) {
             <CssBaseline />
             {typeof token === 'undefined' ? renderInsertEmail(): renderChangePassword()}
             <Box mt={8}>
-                <Copyright />
+                <Footer />
             </Box>
             <DialogCustom title={i18n.t('success')} ></DialogCustom>
             <Progress />

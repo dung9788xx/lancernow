@@ -21,20 +21,7 @@ import Progress from "../dialog/Progress";
 import {getBearerToken, setUserInfo} from "../../services/storageUtils";
 import {startProgress} from "../../actions/progressDialog";
 import {openDialog} from "../../actions/dialog";
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                {"aaa"}
-            </Link>
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
+import Footer from "../footer/footer";
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -166,7 +153,7 @@ export default function SignIn() {
                     </Grid>
             </div>
             <Box mt={8}>
-                <Copyright />
+               <Footer/>
             </Box>
             <DialogCustom title={i18n.t('login_failed')} ></DialogCustom>
             <Progress />
