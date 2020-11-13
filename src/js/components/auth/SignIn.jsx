@@ -20,6 +20,7 @@ import DialogCustom from "../dialog/DialogCustom";
 import Progress from "../dialog/Progress";
 import {getBearerToken, setUserInfo} from "../../services/storageUtils";
 import {startProgress} from "../../actions/progressDialog";
+import {openDialog} from "../../actions/dialog";
 
 function Copyright() {
     return (
@@ -58,7 +59,6 @@ export default function SignIn() {
     const classes = useStyles();
     const [email, setEmail] = useState("admin@gmail.com");
     const [password, setPassword] = useState("password");
-    const [isOpen, setOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [isEmptyEmail, setEmptyEmail] = useState(false);
     const [isEmptyPassword, setEmptyPassword] = useState(false);
@@ -76,8 +76,7 @@ export default function SignIn() {
             setUserInfo(user, isRemberme);
             history.push('/');
         }else{
-            dispatch(progressDialog(res.data.message));
-            setOpen(true);
+            dispatch(openDialog(res.data.message));
         }
 
     }
@@ -87,9 +86,7 @@ export default function SignIn() {
     //          setLoading(false);
     //      }
     // },[isError]);
-    const handleClose = () =>{
-        setOpen(false);
-    }
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -157,7 +154,7 @@ export default function SignIn() {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href="/reset_password?token" variant="body2">
+                            <Link href="/reset_password" variant="body2">
                                 {i18n.t('forgot_password')}
                             </Link>
                         </Grid>

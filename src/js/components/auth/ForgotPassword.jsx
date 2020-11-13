@@ -20,15 +20,18 @@ import DialogCustom from "../dialog/DialogCustom";
 import Progress from "../dialog/Progress";
 import {getBearerToken, setUserInfo} from "../../services/storageUtils";
 import {startProgress} from "../../actions/progressDialog";
+import callApi from "../../services/callApi";
+import {FORGOT_PASSWORD_API, RESET_PASSWORD_API} from "../../constansts/apiConstants";
+import {openDialog} from "../../actions/dialog";
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                {"aaa"}
+                {i18n.t('web_name')}
             </Link>
-            {new Date().getFullYear()}
+             {" "+new Date().getFullYear()}
             {'.'}
         </Typography>
     );
@@ -54,96 +57,162 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ForgotPassword() {
+export default function ForgotPassword(props) {
     const classes = useStyles();
     const [email, setEmail] = useState("admin@gmail.com");
-    const [isOpen, setOpen] = useState(false);
-    const [isLoading, setLoading] = useState(false);
     const [isEmptyEmail, setEmptyEmail] = useState(false);
+    const [password, setPassword] = useState('');
+    const [isEmptyPassword, setIsEmptyPassword] = useState(false);
+    const [helpTextPassword, setHelpTextPassword] = useState('');
+    const [rePassword, setRePassword] = useState('');
+    const [isEmptyRePassword, setIsEmptyRePassword] = useState(false);
+    const [helpTextRePassword, setHelpTextRePassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const  dispatch =  useDispatch();
     let history = useHistory();
+    const  token = props.match.params.token;
     const onSuccess = (res)=>{
-        setLoading(false);
         if(res.data.code==200){
-          //  dispatch(userLogin({username:res.data,password:'pass'}))
-            const user = {
-                token:res.data.data,
-                email:email
-            }
-            setUserInfo(user, isRemberme);
-            history.push('/');
+            setErrorMessage('');
+            dispatch(openDialog(res.data.data));
         }else{
-            dispatch(progressDialog(res.data.message));
-            setOpen(true);
+            setErrorMessage(res.data.message)
         }
 
     }
-    const handleClose = () =>{
-        setOpen(false);
+    const onSuccessChangePassword = (res) => {
+        if(res.data.code==200){
+            dispatch(openDialog(res.data.data, true));
+        }else{
+            setErrorMessage(res.data.message)
+        }
     }
-    return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
+    const renderInsertEmail = () => {
+        return (
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
-                    {i18n.t('login')}
-                </Typography>
+                <Box m={2} textAlign="center" fontWeight="fontWeightRegular" fontSize={16}>
+                    {i18n.t('enter_email')}
+                </Box>
 
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        error={isEmptyEmail}
-                        fullWidth
-                        id="email"
-                        value={email}
-                        onChange={e => {setEmail(e.target.value);setEmptyEmail(false)}}
-                        label= {i18n.t('email')}
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <Button
-                        onClick={()=>{
-                            if(email.length ==0 || password.length ==0){
-                                if(email.length==0) setEmptyEmail(true);
-                                if(password.length==0) setEmptyPassword(true);
-                            }else {
-                                const user = {
-                                    email: email,
-                                    password: password
-                                }
-                                dispatch(requestLogin(user, onSuccess))
-                            }
-                        }}
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        {i18n.t('login')}
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                {i18n.t('forgot_password')}
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                {i18n.t('need_account')}
-                            </Link>
-                        </Grid>
-                    </Grid>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    error={isEmptyEmail}
+                    fullWidth
+                    id="email"
+                    value={email}
+                    onChange={e => {setEmail(e.target.value);setEmptyEmail(false)}}
+                    label= {i18n.t('email')}
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                />
+                <Button
+                    onClick={()=>{
+                        if(email.length ==0 ){
+                            if(email.length==0) setEmptyEmail(true);
+                        }else {
+                            callApi(FORGOT_PASSWORD_API,"POST",{email:email},onSuccess);
+                        }
+                    }}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    {i18n.t('reset_password')}
+                </Button>
+                <Box fontFamily="Arial" textAlign="center" fontWeight="fontWeightMedium" fontSize={16} color="error.main">
+                    {errorMessage}
+                </Box>
+
             </div>
+        )
+    }
+    const renderChangePassword = ()=>{
+        return (
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Box m={2} textAlign="center" fontWeight="fontWeightRegular" fontSize={16}>
+                    {i18n.t('new_password')}
+                </Box>
+
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    error={isEmptyPassword}
+                    fullWidth
+                    id="password"
+                    value={password}
+                    onChange={e => {setPassword(e.target.value);setIsEmptyPassword(false);setHelpTextPassword('')}}
+                    label= {i18n.t('password')}
+                    name="password"
+                    autoComplete="password"
+                    autoFocus
+                    helperText={helpTextPassword}
+                    type="password"
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    error={isEmptyRePassword}
+                    fullWidth
+                    id="repassword"
+                    value={rePassword}
+                    onChange={e => {setRePassword(e.target.value);setIsEmptyRePassword(false);setHelpTextRePassword('')}}
+                    label= {i18n.t('repassword')}
+                    name="repassword"
+                    autoComplete="password"
+                    autoFocus
+                    helperText={helpTextRePassword}
+                    type="password"
+                />
+                <Button
+                    onClick={()=>{
+                        if(password.length == 0 || password.length <6 || rePassword.length==0 ||rePassword.length <6){
+                           if(password.length == 0) setIsEmptyPassword(true);
+                           if( rePassword.length==0) setIsEmptyRePassword(true);
+                           if(password.length <6) {setIsEmptyPassword(true);setHelpTextPassword(i18n.t('password_length'));}
+                           if(rePassword.length <6) {setIsEmptyRePassword(true); setHelpTextRePassword(i18n.t('password_length'));}
+                        }else if(password !== rePassword) {
+                            setErrorMessage(i18n.t('password_not_match'))
+                        }else{
+                            setErrorMessage('');
+                            callApi(RESET_PASSWORD_API,"POST",{token:token,password: password},onSuccessChangePassword);
+                        }
+                    }}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    {i18n.t('change_password')}
+                </Button>
+                <Box fontFamily="Arial" textAlign="center" fontWeight="fontWeightMedium" fontSize={16} color="error.main">
+                    {errorMessage}
+                </Box>
+
+            </div>
+        )
+    }
+    return (
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            {typeof token === 'undefined' ? renderInsertEmail(): renderChangePassword()}
             <Box mt={8}>
                 <Copyright />
             </Box>
-            <DialogCustom title={i18n.t('login_failed')} ></DialogCustom>
+            <DialogCustom title={i18n.t('success')} ></DialogCustom>
             <Progress />
 
         </Container>

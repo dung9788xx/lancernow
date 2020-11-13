@@ -23,7 +23,16 @@ i18n
                     'Network Error':'Network Error',
                     'Request failed with status code 500' : ' Some thing went wrong please try again!',
                     'logout' : 'Logout',
-                    'error' : 'Error'
+                    'error' : 'Error',
+                    'reset_password' : 'Reset password',
+                    'web_name' :'LancerNow',
+                    'enter_email' : 'Please enter your email address to reset your password',
+                    'success' : 'Success',
+                    'new_password' : 'Enter your new password',
+                    'repassword' : 'Confirm Password',
+                    'change_password' : 'Change password',
+                    'password_length' : 'Password length must be than 6',
+                    'password_not_match' : "Password doesn't match!"
                 }
             },
             vn: {
@@ -43,7 +52,16 @@ i18n
                     'Network Error':"Kiểm tra lại kết nối",
                     'Request failed with status code 500' : 'Có lỗi xảy ra vui lòng thử lại!',
                     'logout' : 'Đăng xuất',
-                    'error' : 'Lỗi'
+                    'error' : 'Lỗi',
+                    'reset_password' : 'Khôi phục mật khẩu',
+                    'web_name' :'LancerNow',
+                    'enter_email' : 'Vui lòng nhập địa chỉ email của bạn để khôi phục lại mật khẩu',
+                    'success' : 'Thành công',
+                    'new_password' : 'Nhập mật khẩu mới của bạn',
+                    'repassword' : 'Nhập lại mật khẩu',
+                    'change_password' : 'Thay đổi mật khẩu',
+                    'password_length' : 'Độ dài mật khẩu lớn hơn 6!',
+                    'password_not_match' : 'Hai mật khẩu không khớp!'
                 }
             }
         },

@@ -16,7 +16,7 @@ function App() {
               <Provider store={store}>
                   <Route exact path ='/signin' component={SignIn} />
                   <Route exact path ='/' component={Dashboard} />
-                  <Route path ='/reset_password?token' component={ForgotPassword} />
+                  <Route path ='/reset_password:token?' component={ForgotPassword} />
               </Provider>
           </Switch>
       </BrowserRouter>
