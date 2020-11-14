@@ -3,10 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -18,9 +14,7 @@ import {requestLogin, userLogin} from "../../actions/user";
 import { useHistory } from "react-router";
 import DialogCustom from "../dialog/DialogCustom";
 import Progress from "../dialog/Progress";
-import {getBearerToken, setUserInfo} from "../../services/storageUtils";
-import {startProgress} from "../../actions/progressDialog";
-import {openDialog} from "../../actions/dialog";
+import {getBearerToken, setUserInfo} from "../../services/storageUtils";import {openDialog} from "../../actions/dialog";
 import Footer from "../footer/footer";
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,14 +36,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignIn() {
+export default function SignUp() {
     const classes = useStyles();
-    const [email, setEmail] = useState("admin@gmail.com");
-    const [password, setPassword] = useState("password");
-    const [isLoading, setLoading] = useState(false);
-    const [isEmptyEmail, setEmptyEmail] = useState(false);
-    const [isEmptyPassword, setEmptyPassword] = useState(false);
-    const [isRemberme, setRememberme] =useState(false);
+    const [email, setEmail] = useState('');
+    const [isEmptyEmail, setIsEmptyEmail] = useState(false);
+    const [password, setPassword] = useState('');
+    const [isEmptyPassword, setIsEmptyPassword] = useState(false);
+    const [helpTextPassword, setHelpTextPassword] = useState('');
+    const [rePassword, setRePassword] = useState('');
+    const [isEmptyRePassword, setIsEmptyRePassword] = useState(false);
+    const [helpTextRePassword, setHelpTextRePassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('aaaa');
     const  dispatch =  useDispatch();
     let history = useHistory();
     const onSuccess = (res)=>{
@@ -67,12 +64,6 @@ export default function SignIn() {
         }
 
     }
-    // useEffect(()=>{
-    //      if(isError!=undefined){
-    //          setOpen(true);
-    //          setLoading(false);
-    //      }
-    // },[isError]);
 
     return (
         <Container component="main" maxWidth="xs">
@@ -82,7 +73,7 @@ export default function SignIn() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    {i18n.t('login')}
+                    {i18n.t('register')}
                 </Typography>
 
                     <TextField
@@ -93,7 +84,7 @@ export default function SignIn() {
                         fullWidth
                         id="email"
                         value={email}
-                        onChange={e => {setEmail(e.target.value);setEmptyEmail(false)}}
+                        onChange={e => {setEmail(e.target.value);setIsEmptyEmail(false)}}
                         label= {i18n.t('email')}
                         name="email"
                         autoComplete="email"
@@ -107,17 +98,28 @@ export default function SignIn() {
                         error={isEmptyPassword}
                         name="password"
                         value={password}
-                        onChange={e => {setPassword(e.target.value);setEmptyPassword(false)}}
+                        onChange={e => {setPassword(e.target.value);setIsEmptyPassword(false)}}
                         label= {i18n.t('password')}
                         type="password"
                         id="password"
                         autoComplete="current-password"
                     />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" checked={isRemberme} onChange={()=>setRememberme(!isRemberme)} color="primary" />}
-                        label={i18n.t('remember_me')}
-                    />
-
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    error={isEmptyRePassword}
+                    fullWidth
+                    id="repassword"
+                    value={rePassword}
+                    onChange={e => {setRePassword(e.target.value);setIsEmptyRePassword(false);setHelpTextRePassword('')}}
+                    label= {i18n.t('repassword')}
+                    name="repassword"
+                    autoComplete="password"
+                    autoFocus
+                    helperText={helpTextRePassword}
+                    type="password"
+                />
                     <Button
                         onClick={()=>{
                             if(email.length ==0 || password.length ==0){
@@ -137,20 +139,11 @@ export default function SignIn() {
                         color="primary"
                         className={classes.submit}
                     >
-                        {i18n.t('login')}
+                        {i18n.t('register')}
                     </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="/reset_password" variant="body2">
-                                {i18n.t('forgot_password')}
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="/signup" variant="body2">
-                                {i18n.t('need_account')}
-                            </Link>
-                        </Grid>
-                    </Grid>
+                <Box fontFamily="Arial" textAlign="center" fontWeight="fontWeightMedium" fontSize={16} color="error.main">
+                    {errorMessage}
+                </Box>
             </div>
             <Box mt={8}>
                <Footer/>

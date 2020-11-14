@@ -9,6 +9,7 @@ import DialogCustom from "./js/components/dialog/DialogCustom";
 import i18n from "./js/i18n/i18n";
 import Container from "@material-ui/core/Container";
 import ForgotPassword from "./js/components/auth/ForgotPassword";
+import SignUp from "./js/components/auth/SignUp";
 function App() {
   return (
       <BrowserRouter>
@@ -17,6 +18,7 @@ function App() {
                   <Route exact path ='/signin' component={SignIn} />
                   <Route exact path ='/' component={Dashboard} />
                   <Route path ='/reset_password:token?' component={ForgotPassword} />
+                  <Route path ='/signup' component={SignUp} />
               </Provider>
           </Switch>
       </BrowserRouter>
