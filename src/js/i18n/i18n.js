@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import {PASSWORD_LENGTH} from "../constansts/apiConstants";
 
 i18n
     .use(LanguageDetector)
@@ -31,7 +32,7 @@ i18n
                     'new_password' : 'Enter your new password',
                     'repassword' : 'Confirm Password',
                     'change_password' : 'Change password',
-                    'password_length' : 'Password length must be than 6',
+                    'password_length' : 'Password length must be than '+PASSWORD_LENGTH+'!',
                     'password_not_match' : "Password doesn't match!"
                 }
             },
@@ -60,7 +61,7 @@ i18n
                     'new_password' : 'Nhập mật khẩu mới của bạn',
                     'repassword' : 'Nhập lại mật khẩu',
                     'change_password' : 'Thay đổi mật khẩu',
-                    'password_length' : 'Độ dài mật khẩu lớn hơn 6!',
+                    'password_length' : 'Độ dài mật khẩu lớn hơn '+PASSWORD_LENGTH+'!',
                     'password_not_match' : 'Hai mật khẩu không khớp!'
                 }
             }

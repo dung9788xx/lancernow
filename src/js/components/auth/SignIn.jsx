@@ -22,6 +22,7 @@ import {getBearerToken, setUserInfo} from "../../services/storageUtils";
 import {startProgress} from "../../actions/progressDialog";
 import {openDialog} from "../../actions/dialog";
 import Footer from "../footer/footer";
+import {PASSWORD_LENGTH} from "../../constansts/apiConstants";
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -84,7 +88,19 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     {i18n.t('login')}
                 </Typography>
-
+                <form  className={classes.form} onSubmit={(e)=>{
+                    e.preventDefault();
+                    if(email.length ==0 || password.length ==0){
+                        if(email.length==0) setEmptyEmail(true);
+                        if(password.length==0) setEmptyPassword(true);
+                    }else {
+                        const user = {
+                            email: email,
+                            password: password
+                        }
+                        dispatch(requestLogin(user, onSuccess))
+                    }
+                }} autoComplete="off">
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -98,6 +114,7 @@ export default function SignIn() {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        type='email'
                     />
                     <TextField
                         variant="outlined"
@@ -119,18 +136,6 @@ export default function SignIn() {
                     />
 
                     <Button
-                        onClick={()=>{
-                            if(email.length ==0 || password.length ==0){
-                                if(email.length==0) setEmptyEmail(true);
-                                if(password.length==0) setEmptyPassword(true);
-                            }else {
-                                const user = {
-                                    email: email,
-                                    password: password
-                                }
-                                dispatch(requestLogin(user, onSuccess))
-                            }
-                        }}
                         type="submit"
                         fullWidth
                         variant="contained"
@@ -151,6 +156,7 @@ export default function SignIn() {
                             </Link>
                         </Grid>
                     </Grid>
+                </form>
             </div>
             <Box mt={8}>
                <Footer/>

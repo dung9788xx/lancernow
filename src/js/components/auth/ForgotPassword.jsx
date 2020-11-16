@@ -21,7 +21,7 @@ import Progress from "../dialog/Progress";
 import {getBearerToken, setUserInfo} from "../../services/storageUtils";
 import {startProgress} from "../../actions/progressDialog";
 import callApi from "../../services/callApi";
-import {FORGOT_PASSWORD_API, RESET_PASSWORD_API} from "../../constansts/apiConstants";
+import {FORGOT_PASSWORD_API, PASSWORD_LENGTH, RESET_PASSWORD_API} from "../../constansts/apiConstants";
 import {openDialog} from "../../actions/dialog";
 import Footer from "../footer/footer";
 
@@ -86,7 +86,14 @@ export default function ForgotPassword(props) {
                 <Box m={2} textAlign="center" fontWeight="fontWeightRegular" fontSize={16}>
                     {i18n.t('enter_email')}
                 </Box>
-
+                <form className={classes.root} onSubmit={(e)=>{
+                    e.preventDefault();
+                        if(email.length ==0 ){
+                            if(email.length==0) setEmptyEmail(true);
+                        }else {
+                            callApi(FORGOT_PASSWORD_API,"POST",{email:email},onSuccess);
+                    }
+                }} autoComplete="off">
                 <TextField
                     variant="outlined"
                     margin="normal"
@@ -100,15 +107,9 @@ export default function ForgotPassword(props) {
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    type={'email'}
                 />
                 <Button
-                    onClick={()=>{
-                        if(email.length ==0 ){
-                            if(email.length==0) setEmptyEmail(true);
-                        }else {
-                            callApi(FORGOT_PASSWORD_API,"POST",{email:email},onSuccess);
-                        }
-                    }}
                     type="submit"
                     fullWidth
                     variant="contained"
@@ -117,6 +118,12 @@ export default function ForgotPassword(props) {
                 >
                     {i18n.t('reset_password')}
                 </Button>
+                    <Typography align="center">
+                        <Link href="/signin" variant="body2">
+                            {i18n.t('login')}
+                        </Link>
+                    </Typography>
+                </form>
                 <Box fontFamily="Arial" textAlign="center" fontWeight="fontWeightMedium" fontSize={16} color="error.main">
                     {errorMessage}
                 </Box>
@@ -133,7 +140,20 @@ export default function ForgotPassword(props) {
                 <Box m={2} textAlign="center" fontWeight="fontWeightRegular" fontSize={16}>
                     {i18n.t('new_password')}
                 </Box>
-
+                <form className={classes.root} onSubmit={(e)=>{
+                    e.preventDefault();
+                    if(password.length == 0 || password.length <6 || rePassword.length==0 ||rePassword.length <6){
+                        if(password.length == 0) setIsEmptyPassword(true);
+                        if( rePassword.length==0) setIsEmptyRePassword(true);
+                        if(password.length <PASSWORD_LENGTH) {setIsEmptyPassword(true);setHelpTextPassword(i18n.t('password_length'));}
+                        if(rePassword.length <PASSWORD_LENGTH) {setIsEmptyRePassword(true); setHelpTextRePassword(i18n.t('password_length'));}
+                    }else if(password !== rePassword) {
+                        setErrorMessage(i18n.t('password_not_match'))
+                    }else{
+                        setErrorMessage('');
+                        callApi(RESET_PASSWORD_API,"POST",{token:token,password: password},onSuccessChangePassword);
+                    }
+                }} autoComplete="off">
                 <TextField
                     variant="outlined"
                     margin="normal"
@@ -167,19 +187,6 @@ export default function ForgotPassword(props) {
                     type="password"
                 />
                 <Button
-                    onClick={()=>{
-                        if(password.length == 0 || password.length <6 || rePassword.length==0 ||rePassword.length <6){
-                           if(password.length == 0) setIsEmptyPassword(true);
-                           if( rePassword.length==0) setIsEmptyRePassword(true);
-                           if(password.length <6) {setIsEmptyPassword(true);setHelpTextPassword(i18n.t('password_length'));}
-                           if(rePassword.length <6) {setIsEmptyRePassword(true); setHelpTextRePassword(i18n.t('password_length'));}
-                        }else if(password !== rePassword) {
-                            setErrorMessage(i18n.t('password_not_match'))
-                        }else{
-                            setErrorMessage('');
-                            callApi(RESET_PASSWORD_API,"POST",{token:token,password: password},onSuccessChangePassword);
-                        }
-                    }}
                     type="submit"
                     fullWidth
                     variant="contained"
@@ -188,6 +195,7 @@ export default function ForgotPassword(props) {
                 >
                     {i18n.t('change_password')}
                 </Button>
+                </form>
                 <Box fontFamily="Arial" textAlign="center" fontWeight="fontWeightMedium" fontSize={16} color="error.main">
                     {errorMessage}
                 </Box>
