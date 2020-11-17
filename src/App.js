@@ -19,9 +19,8 @@ function App() {
                   <Route exact path ='/signin' component={SignIn} />
                   <Route exact path ='/' component={Dashboard} />
                   <Route path ='/reset_password:token?' component={ForgotPassword} />
-                  <Route path ='/signup' component={SignUp} />
-                  <Route path ='/404' component={Page404} />
-                  <Redirect to='/404' />
+                  <Route exact path ='/signup' component={SignUp} />
+                  <Route component={Page404} />
               </Provider>
           </Switch>
       </BrowserRouter>

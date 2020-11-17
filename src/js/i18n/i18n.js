@@ -34,7 +34,8 @@ i18n
                     'change_password' : 'Change password',
                     'password_length' : 'Password length must be than '+PASSWORD_LENGTH+'!',
                     'password_not_match' : "Password doesn't match!",
-                    'page_not_found' : "The page you're looking for was not found."
+                    'page_not_found' : "The page you're looking for was not found.",
+                    'back_home' : 'Back to home page'
                 }
             },
             vn: {
@@ -64,7 +65,8 @@ i18n
                     'change_password' : 'Thay đổi mật khẩu',
                     'password_length' : 'Độ dài mật khẩu lớn hơn '+PASSWORD_LENGTH+'!',
                     'password_not_match' : 'Hai mật khẩu không khớp!',
-                    'page_not_found' : "Trang bạn đang tìm kiếm không tồn tại."
+                    'page_not_found' : "Trang bạn đang tìm kiếm không tồn tại.",
+                    'back_home' : 'Quay lại trang chủ'
                 }
             }
         },
