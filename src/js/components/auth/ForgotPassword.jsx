@@ -23,7 +23,7 @@ import {startProgress} from "../../actions/progressDialog";
 import callApi from "../../services/callApi";
 import {FORGOT_PASSWORD_API, PASSWORD_LENGTH, RESET_PASSWORD_API} from "../../constansts/apiConstants";
 import {openDialog} from "../../actions/dialog";
-import Footer from "../footer/footer";
+import Footer from "../common/footer";
 
 
 

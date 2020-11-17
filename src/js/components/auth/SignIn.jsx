@@ -21,7 +21,7 @@ import Progress from "../dialog/Progress";
 import {getBearerToken, setUserInfo} from "../../services/storageUtils";
 import {startProgress} from "../../actions/progressDialog";
 import {openDialog} from "../../actions/dialog";
-import Footer from "../footer/footer";
+import Footer from "../common/footer";
 import {PASSWORD_LENGTH} from "../../constansts/apiConstants";
 const useStyles = makeStyles((theme) => ({
     paper: {

@@ -15,7 +15,7 @@ import { useHistory } from "react-router";
 import DialogCustom from "../dialog/DialogCustom";
 import Progress from "../dialog/Progress";
 import {getBearerToken, setUserInfo} from "../../services/storageUtils";import {openDialog} from "../../actions/dialog";
-import Footer from "../footer/footer";
+import Footer from "../common/footer";
 import {EMAIL_REGEX, PASSWORD_LENGTH, RESET_PASSWORD_API, SIGNUP_API} from "../../constansts/apiConstants";
 import callApi from "../../services/callApi";
 import Grid from "@material-ui/core/Grid";
