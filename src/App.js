@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 import ForgotPassword from "./js/components/auth/ForgotPassword";
 import SignUp from "./js/components/auth/SignUp";
 import Page404 from "./js/components/common/Page404";
+import HomePage from "./js/components/common/HomePage";
 
 function App() {
     return (
@@ -19,7 +20,7 @@ function App() {
                 <Switch>
 
                     <Route exact path='/signin' component={SignIn}/>
-                    <Route exact path='/' component={Dashboard}/>
+                    <Route exact path='/' component={HomePage}/>
                     <Route path='/reset_password:token?' component={ForgotPassword}/>
                     <Route exact path='/signup' component={SignUp}/>
                     <Route  component={Page404}/>

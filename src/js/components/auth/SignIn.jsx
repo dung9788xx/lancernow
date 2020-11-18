@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const classes = useStyles();
     const [email, setEmail] = useState("admin@gmail.com");
-    const [password, setPassword] = useState("password");
+    const [password, setPassword] = useState("aaaaaa");
     const [isEmptyEmail, setEmptyEmail] = useState(false);
     const [isEmptyPassword, setEmptyPassword] = useState(false);
     const [isRemberme, setRememberme] =useState(false);
