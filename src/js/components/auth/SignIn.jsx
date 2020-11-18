@@ -50,19 +50,17 @@ export default function SignIn() {
     const classes = useStyles();
     const [email, setEmail] = useState("admin@gmail.com");
     const [password, setPassword] = useState("password");
-    const [isLoading, setLoading] = useState(false);
     const [isEmptyEmail, setEmptyEmail] = useState(false);
     const [isEmptyPassword, setEmptyPassword] = useState(false);
     const [isRemberme, setRememberme] =useState(false);
     const  dispatch =  useDispatch();
     let history = useHistory();
     const onSuccess = (res)=>{
-        setLoading(false);
         if(res.data.code==200){
-          //  dispatch(userLogin({username:res.data,password:'pass'}))
             const user = {
-                token:res.data.data,
-                email:email
+                token:res.data.data.token,
+                email:email,
+                role:res.data.data.role
             }
             setUserInfo(user, isRemberme);
             history.push('/');
@@ -71,13 +69,6 @@ export default function SignIn() {
         }
 
     }
-    // useEffect(()=>{
-    //      if(isError!=undefined){
-    //          setOpen(true);
-    //          setLoading(false);
-    //      }
-    // },[isError]);
-
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
