@@ -35,7 +35,11 @@ i18n
                     'password_length' : 'Password length must be than '+PASSWORD_LENGTH+'!',
                     'password_not_match' : "Password doesn't match!",
                     'page_not_found' : "The page you're looking for was not found.",
-                    'back_home' : 'Back to home page'
+                    'back_home' : 'Back to home page',
+                    'post_by':'Post by: ',
+                    'project_size' : 'Size: ',
+                    'offered':' bid',
+                    'bid_time_remaining': 'Bid time remaining: '
                 }
             },
             vn: {
@@ -66,7 +70,11 @@ i18n
                     'password_length' : 'Độ dài mật khẩu lớn hơn '+PASSWORD_LENGTH+'!',
                     'password_not_match' : 'Hai mật khẩu không khớp!',
                     'page_not_found' : "Trang bạn đang tìm kiếm không tồn tại.",
-                    'back_home' : 'Quay lại trang chủ'
+                    'back_home' : 'Quay lại trang chủ',
+                    'post_by' : 'Đăng bởi: ',
+                    'project_size' : 'Quy mô: ',
+                    'offered':' chào giá',
+                    'bid_time_remaining': 'Thời gian chào giá còn lại: '
                 }
             }
         },

@@ -27,6 +27,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardPost from "./CardPost";
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -54,23 +55,10 @@ export default function HomePage() {
     const classes = useStyles();
 
     return (
-        <div style={{width:'100vw',background:'red'}}  component="main">
-
-            <Grid style={{background:'blue'}} maxWidth={'xs'} container
-                   direction="column"
-                   justify="center"
-                   alignItems="center" >
-                <Grid item>
-                    <Card>
-                        <CardContent>
-                            <Typography component="h2" variant="h5">
-                                AAAAaaaaaaaaaaaaa
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-
-            </Grid>
-        </div>
+        // <div style={{width:'100vw',background:'red'}}  component="main">
+           <div className={classes.paper}>
+                    <CardPost/>
+           </div>
+        // </div>
     );
 }
