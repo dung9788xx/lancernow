@@ -13,11 +13,8 @@ import i18next from "i18next";
 import {mobileSize} from "../../constansts/constCommon";
 import Divider from "@material-ui/core/Divider";
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(0),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+    rootGird: {
+        marginTop: theme.spacing(1)
     },
     cardPadding: {
         marginTop: theme.spacing(2),
@@ -71,8 +68,9 @@ function CardPost(props) {
             }
         }
         return (
-            <Grid xs={12} item>
-                <Paper square >
+            <Grid xs={12} className={classes.rootGird} item>
+
+                <Paper variant="outlined" square >
                     <CardContent className={classes.cardPadding}>
                         <Typography  display={"inline"} xs={12}   m={4} variant={'h6'}>
                             <Link className={classes.link} variant={'h6'}  underline='none' href={'/'}>
@@ -102,7 +100,7 @@ function CardPost(props) {
                               </Typography>
                           </Grid>
                           <Grid item xs={4} align={'end'}>
-                              <Typography  variant=""  gutterBottom>
+                              <Typography   variant=""  gutterBottom>
                                   {post.offered} {i18next.t('offered')}
                               </Typography>
                           </Grid>
