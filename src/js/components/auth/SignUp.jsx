@@ -117,7 +117,7 @@ export default function SignUp() {
                         error={isEmptyPassword}
                         name="password"
                         value={password}
-                        onChange={e => {setPassword(e.target.value);setIsEmptyPassword(false)}}
+                        onChange={e => {setPassword(e.target.value);setIsEmptyPassword(false);setHelpTextPassword('')}}
                         label= {i18n.t('password')}
                         type="password"
                         id="password"
