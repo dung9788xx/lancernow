@@ -39,7 +39,11 @@ i18n
                     'post_by':'Post by: ',
                     'project_size' : 'Size: ',
                     'offered':' bid',
-                    'bid_time_remaining': 'Bid time remaining: '
+                    'bid_time_remaining': 'Bid time remaining: ',
+                    'name' : 'Name',
+                    'hirer' : 'Hirer',
+                    'lancer' : 'Freelancer',
+                    'you_are' : 'Bạn là:'
                 }
             },
             vn: {
@@ -74,7 +78,11 @@ i18n
                     'post_by' : 'Đăng bởi: ',
                     'project_size' : 'Quy mô: ',
                     'offered':' chào giá',
-                    'bid_time_remaining': 'Thời gian chào giá còn lại: '
+                    'bid_time_remaining': 'Thời gian chào giá còn lại: ',
+                    'name' : 'Tên',
+                    'hirer' : 'Người thuê',
+                    'lancer' : 'Người tìm việc',
+                    'you_are' : 'Bạn là:'
                 }
             }
         },

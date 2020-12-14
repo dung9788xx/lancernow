@@ -20,6 +20,10 @@ import {EMAIL_REGEX, PASSWORD_LENGTH, RESET_PASSWORD_API, SIGNUP_API} from "../.
 import callApi from "../../services/callApi";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
+import InputLabel from "@material-ui/core/InputLabel";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -38,10 +42,18 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    selectBox: {
+        width: 200,
+        padding:2
+    },
 }));
 
 export default function SignUp() {
     const classes = useStyles();
+    const [name, setName] = useState('');
+    const [role, setRole] = useState(2);
+    const [isEmptyName, setIsEmptyName] = useState(false);
+    const [helpTextName, setHelpTextName] = useState('');
     const [email, setEmail] = useState('');
     const [helpTextEmail, setHelpTextEmail] = useState('');
     const [isEmptyEmail, setIsEmptyEmail] = useState(false);
@@ -57,12 +69,7 @@ export default function SignUp() {
     const onSuccess = (res)=>{
         if(res.data.code==200){
           //  dispatch(userLogin({username:res.data,password:'pass'}))
-            const user = {
-                token:res.data.data,
-                email:email
-            }
-            setUserInfo(user, isRemberme);
-            history.push('/');
+            dispatch(openDialog(res.data.data));
         }else{
             dispatch(openDialog(res.data.message));
         }
@@ -90,9 +97,25 @@ export default function SignUp() {
                         setErrorMessage(i18n.t('password_not_match'))
                     }else{
                         setErrorMessage('');
-                        callApi(SIGNUP_API,"POST",{email:email,password: password}, onSuccess);
+                        callApi(SIGNUP_API,"POST",{email:email,name:name,password: password, role : role}, onSuccess);
                     }
-                }} autoComplete="off">
+                }} >
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        error={isEmptyName}
+                        fullWidth
+                        id="email"
+                        value={name}
+                        onChange={e => {setName(e.target.value);setIsEmptyName(false)}}
+                        label= {i18n.t('name')}
+                        name="name"
+                        autoComplete="name"
+                        type='name'
+                        helperText={helpTextName}
+                        autoFocus
+                    />
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -140,6 +163,18 @@ export default function SignUp() {
                     helperText={helpTextRePassword}
                     type="password"
                 />
+                    <InputLabel style={{marginTop:10}} shrink >
+                        {i18n.t('you_are')}
+                    </InputLabel>
+                    <NativeSelect className={classes.selectBox}
+                        value={role}
+                        onChange={(e)=>{
+                            setRole(e.target.value)
+                        }}
+                    >
+                        <option className={classes.selectItem} value={2}>{i18n.t('hirer')}</option>
+                        <option className={classes.selectItem} value={3}>{i18n.t('lancer')}</option>
+                    </NativeSelect>
                     <Button
                         type="submit"
                         fullWidth
