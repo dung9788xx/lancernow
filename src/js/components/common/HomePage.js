@@ -28,6 +28,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardPost from "./CardPost";
+import Dashboard from "../dashboard/Dashboard";
+import Header from "./header";
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -56,9 +58,12 @@ export default function HomePage() {
 
     return (
         // <div style={{width:'100vw',background:'red'}}  component="main">
+        <div>
+            <Header/>
            <div className={classes.paper}>
+
                     <CardPost/>
            </div>
-        // </div>
+        </div>
     );
 }
