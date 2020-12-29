@@ -23,20 +23,17 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
-    textInput:{
-        width: '100%',
+    button:{
+        marginLeft:'10px',
+        width: '20%',
+        height:'3.0em',
+        'line-height':'1.1em',
         background: '#4A90E2',
-        textAlign: 'center',
-        border: '3px solid gray',
-        'border-radius': '15px',
-        '&$focused': {
-            background: 'red',
-        },
     },
 }));
 const BootstrapInput = withStyles((theme) => ({
     root: {
-        width: '100%',
+        width: '75%',
     },
     input: {
         borderRadius: 4,
@@ -53,13 +50,14 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 function SearchBox(props) {
     const classes = useStyles();
-    console.log(props)
     return (
         <Grid xs={mobileSize.indexOf(props.width) > -1 ? 12 : 7} container
-              alignContent={'center'}
-              alignItems={'center'}
+            style={{'text-align':'center'}}
            >
-            <BootstrapInput {...props} defaultValue="react-bootstrap" id="bootstrap-input" />
+                  <BootstrapInput {...props} defaultValue="react-bootstrap" id="bootstrap-input" />
+                  <Button variant="contained" className={classes.button} color="primary">
+                      {i18n.t('search')}
+                  </Button>
         </Grid>
 
     );
