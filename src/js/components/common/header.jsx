@@ -156,7 +156,7 @@ export default function Header() {
                     </SwipeableDrawer>
                 </React.Fragment>
             </div>
-            
+            <DialogCustom title={i18n.t('login_failed')} ></DialogCustom>
         </div>
     );
 }

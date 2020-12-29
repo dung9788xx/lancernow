@@ -43,7 +43,8 @@ i18n
                     'name' : 'Name',
                     'hirer' : 'Hirer',
                     'lancer' : 'Freelancer',
-                    'you_are' : 'Bạn là:'
+                    'you_are' : 'Bạn là:',
+                    'search' : 'Search'
                 }
             },
             vn: {
@@ -82,7 +83,8 @@ i18n
                     'name' : 'Tên',
                     'hirer' : 'Người thuê',
                     'lancer' : 'Người tìm việc',
-                    'you_are' : 'Bạn là:'
+                    'you_are' : 'Bạn là:',
+                    'search' : 'Tìm kiếm'
                 }
             }
         },
