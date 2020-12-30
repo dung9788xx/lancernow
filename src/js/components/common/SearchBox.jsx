@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
-    button:{
-        marginLeft:'10px',
-        width: '20%',
-        height:'3.0em',
-        'line-height':'1.1em',
+    button: {
+        padding: '10px',
+        width: '100%',
+        height: '3.0em',
+        'line-height': '1.1em',
         background: '#4A90E2',
     },
 }));
 const BootstrapInput = withStyles((theme) => ({
     root: {
-        width: '75%',
+        width: '100%',
     },
     input: {
         borderRadius: 4,
@@ -41,25 +41,32 @@ const BootstrapInput = withStyles((theme) => ({
         backgroundColor: theme.palette.common.white,
         border: '1px solid #ced4da',
         fontSize: 20,
-        textAlign:'center',
+        textAlign: 'center',
         padding: '10px 12px',
         '&:focus': {
             borderColor: theme.palette.primary.main,
         },
     },
 }))(InputBase);
+
 function SearchBox(props) {
     const classes = useStyles();
     return (
         <Grid xs={mobileSize.indexOf(props.width) > -1 ? 12 : 7} container
-            style={{'text-align':'center'}}
-           >
-                  <BootstrapInput {...props} defaultValue="react-bootstrap" id="bootstrap-input" />
-                  <Button variant="contained" className={classes.button} color="primary">
-                      {i18n.t('search')}
-                  </Button>
+              alignContent='center'
+              spacing={1}
+              justify='center'>
+            <Grid  xs={8} item>
+                <BootstrapInput {...props} defaultValue="react-bootstrap" id="bootstrap-input"/>
+            </Grid>
+            <Grid xs={2} item>
+                <Button fullWidth variant="contained" className={classes.button} color="primary">
+                    {i18n.t('search')}
+                </Button>
+            </Grid>
         </Grid>
 
     );
 }
+
 export default withWidth()(SearchBox);
