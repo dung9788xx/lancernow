@@ -51,16 +51,21 @@ const BootstrapInput = withStyles((theme) => ({
 
 function SearchBox(props) {
     const classes = useStyles();
+    const [search, setSearch] = useState('');
     return (
         <Grid xs={mobileSize.indexOf(props.width) > -1 ? 12 : 7} container
               alignContent='center'
               spacing={1}
               justify='center'>
             <Grid  xs={8} item>
-                <BootstrapInput {...props} defaultValue="react-bootstrap" id="bootstrap-input"/>
+                <BootstrapInput value={search}  onChange={
+                    (e) => {
+                        setSearch(e.target.value)
+                    }
+                }  defaultValue="react-bootstrap" id="bootstrap-input"/>
             </Grid>
             <Grid xs={2} item>
-                <Button fullWidth variant="contained" className={classes.button} color="primary">
+                <Button onClick={props.onClicka} fullWidth variant="contained" className={classes.button} color="primary">
                     {i18n.t('search')}
                 </Button>
             </Grid>

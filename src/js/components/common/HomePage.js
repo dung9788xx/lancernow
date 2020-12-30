@@ -57,17 +57,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HomePage() {
     const classes = useStyles();
-    const [search, setSearch] = useState('');
     return (
         // <div style={{width:'100vw',background:'red'}}  component="main">
         <div>
             <Header/>
             <div className={classes.paper}>
-                <SearchBox value={search} onChange={
-                    (e) => {
-                        setSearch(e.target.value)
-                    }
-                } placeholder={i18n.t('search')}/>
+                <SearchBox onClicka={(e)=>{
+                  console.log(e.target.value)
+                }}  placeholder={i18n.t('search')}/>
                 <CardPost/>
             </div>
         </div>
