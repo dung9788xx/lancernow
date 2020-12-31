@@ -65,7 +65,7 @@ function SearchBox(props) {
                 }  defaultValue="react-bootstrap" id="bootstrap-input"/>
             </Grid>
             <Grid xs={2} item>
-                <Button onClick={props.onClicka} fullWidth variant="contained" className={classes.button} color="primary">
+                <Button onClick={()=>props.onClick(search)} fullWidth variant="contained" className={classes.button} color="primary">
                     {i18n.t('search')}
                 </Button>
             </Grid>

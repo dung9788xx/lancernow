@@ -62,8 +62,8 @@ export default function HomePage() {
         <div>
             <Header/>
             <div className={classes.paper}>
-                <SearchBox onClicka={(e)=>{
-                  console.log(e.target.value)
+                <SearchBox onClick={(e)=>{
+                  console.log(e)
                 }}  placeholder={i18n.t('search')}/>
                 <CardPost/>
             </div>
