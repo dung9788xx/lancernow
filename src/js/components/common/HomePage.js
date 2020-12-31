@@ -74,7 +74,6 @@ export default function HomePage() {
                 }}  placeholder={i18n.t('search')}/>
                 <CardPost/>
             </div>
-            <Progress />
         </div>
     );
 }

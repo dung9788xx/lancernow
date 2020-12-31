@@ -29,7 +29,9 @@ import {useDispatch} from "react-redux";
 import { useHistory } from "react-router";
 import DialogCustom from "../dialog/DialogCustom";
 import Container from "@material-ui/core/Container";
-export default function Header() {
+import withWidth from "@material-ui/core/withWidth";
+import {mobileSize} from "../../constansts/constCommon";
+ function Header(props) {
     const  dispatch =  useDispatch();
     let history = useHistory();
     const useStyles = makeStyles((theme) => ({
@@ -101,8 +103,8 @@ export default function Header() {
             <Divider/>
         </div>
     );
-    return (
-        <div className={classes.root}>
+    const renderMobile = (
+        <div>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" onClick={toggleDrawer('left', true)} className={classes.menuButton}
@@ -110,7 +112,7 @@ export default function Header() {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Photos
+                        {i18n.t('web_name')}
                     </Typography>
                     <div>
                         <IconButton
@@ -158,5 +160,34 @@ export default function Header() {
             </div>
             <DialogCustom title={i18n.t('login_failed')} ></DialogCustom>
         </div>
+    )
+     const renderPc = (
+         <div>
+             <AppBar position="static">
+                 <Toolbar>
+                     <Typography variant="h6" className={classes.title}>
+                         {i18n.t('web_name')}
+                     </Typography>
+                     <div>
+                             <List>
+                                 <ListItem button key={'logout'} onClick={()=>handleMenuSelect('logout')}>
+                                     <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+                                     <ListItemText primary={i18n.t('logout')}/>
+                                 </ListItem>
+                             </List>
+
+                     </div>
+
+                 </Toolbar>
+             </AppBar>
+             <DialogCustom title={i18n.t('login_failed')} ></DialogCustom>
+         </div>
+     )
+    return (
+        <div className={classes.root}>
+            { mobileSize.indexOf(props.width) > -1 ? renderMobile : renderPc }
+        </div>
     );
 }
+export default withWidth()(Header);
+
