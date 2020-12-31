@@ -52,13 +52,18 @@ const BootstrapInput = withStyles((theme) => ({
 function SearchBox(props) {
     const classes = useStyles();
     const [search, setSearch] = useState('');
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && search.trim().length>0) {
+            props.onClick(search)
+        }
+    }
     return (
         <Grid xs={mobileSize.indexOf(props.width) > -1 ? 12 : 7} container
               alignContent='center'
               spacing={1}
               justify='center'>
             <Grid  xs={8} item>
-                <BootstrapInput value={search}  onChange={
+                <BootstrapInput onKeyDown={handleKeyDown} value={search}  onE onChange={
                     (e) => {
                         setSearch(e.target.value)
                     }

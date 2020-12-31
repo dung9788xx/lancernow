@@ -5,5 +5,6 @@ export const LOGOUT_API=API+"auth/logout";
 export const ADMIN_LIST_USER_API=API+"admin/users/list";
 export const FORGOT_PASSWORD_API=API+"auth/forgot-password";
 export const RESET_PASSWORD_API=API+"auth/reset-password";
+export const GET_LIST_JOB=API+"jobs";
 export const EMAIL_REGEX="/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[A-Za-z]+$/";
 export const PASSWORD_LENGTH=6;

@@ -31,6 +31,7 @@ import CardPost from "./CardPost";
 import Dashboard from "../dashboard/Dashboard";
 import Header from "./header";
 import SearchBox from "./SearchBox";
+import {getListJob} from "../../actions/job";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -57,16 +58,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HomePage() {
     const classes = useStyles();
+    const  dispatch =  useDispatch();
+    const success = (data) => {
+
+    }
+    const fails = (data) => {
+
+    }
     return (
-        // <div style={{width:'100vw',background:'red'}}  component="main">
         <div>
             <Header/>
             <div className={classes.paper}>
                 <SearchBox onClick={(e)=>{
-                  console.log(e)
+                    dispatch(getListJob({},success,fails))
                 }}  placeholder={i18n.t('search')}/>
                 <CardPost/>
             </div>
+            <Progress />
         </div>
     );
 }
