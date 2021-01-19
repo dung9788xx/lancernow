@@ -12,13 +12,14 @@ import ForgotPassword from "./js/components/auth/ForgotPassword";
 import SignUp from "./js/components/auth/SignUp";
 import Page404 from "./js/components/common/Page404";
 import HomePage from "./js/components/common/HomePage";
+import Test from "./js/components/auth/Test";
 
 function App() {
     return (
         <BrowserRouter>
             <Provider store={store}>
                 <Switch>
-
+                    <Route exact path='/test' component={Test}/>
                     <Route exact path='/signin' component={SignIn}/>
                     <Route exact path='/' component={HomePage}/>
                     <Route path='/reset_password:token?' component={ForgotPassword}/>

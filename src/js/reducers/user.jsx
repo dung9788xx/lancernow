@@ -12,7 +12,12 @@ const  userReducer = (state = intState, action) => {
                username: action.payload.username
            };
        }
-
+       case "SET_USER":{
+           return {
+               ...state,
+               username: action.payload.username
+           }
+       }
    }
     return state;
 }
